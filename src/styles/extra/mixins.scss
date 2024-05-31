@@ -1,0 +1,39 @@
+@use "variables" as *;
+@use "extends" as *;
+
+
+@mixin font-base($color) {
+    @extend %font-style;
+
+    font-size: $font-size-base;
+    color: $color;
+}
+
+@mixin font-small($color) {
+    @extend %font-style;
+
+    font-size: $font-size-small;
+    color: $color;
+}
+
+@mixin font-medium($color) {
+    @extend %font-style;
+
+    font-size: $font-size-medium;
+    color: $color;
+}
+
+@mixin font-large($color) {
+    @extend %font-style;
+
+    font-size: $font-size-large;
+    color: $color;
+}
+
+@mixin text-ellipsis($line: 1) {
+    display: -webkit-box;
+    -webkit-line-clamp: $line; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

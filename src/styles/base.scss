@@ -1,0 +1,26 @@
+@use "extra/variables" as *;
+@use "extra/extends" as  *;
+
+.font-base {
+    @extend %font-style;
+}
+
+.font-small {
+    @extend %font-style;
+
+    font-size: $font-size-small;
+}
+
+.font-medium {
+    @extend %font-style;
+
+    font-size: $font-size-medium;
+}
+
+.font-large {
+    @extend %font-style;
+
+    font-size: $font-size-large;
+}
+
+
