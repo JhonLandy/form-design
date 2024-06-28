@@ -5,7 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "vite --mode development --host",
-        "build": "vue-tsc && vite build",
+        "build": "pnpm install --no-frozen-lockfile && vue-tsc && vite build",
         "preview": "vite preview"
     },
     "dependencies": {
