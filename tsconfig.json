@@ -5,6 +5,7 @@
         "jsxImportSource": "vue",
         "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "useDefineForClassFields": true,
+        "baseUrl": "./",
         "module": "ESNext",
         /* Bundler mode */
         "moduleResolution": "bundler",

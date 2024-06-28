@@ -19,5 +19,6 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/vue-generate/': RouteRecordInfo<'/vue-generate/', '/vue-generate', Record<never, never>, Record<never, never>>,
+    '/vue-generate/person': RouteRecordInfo<'/vue-generate/person', '/vue-generate/person', Record<never, never>, Record<never, never>>,
   }
 }

@@ -6,6 +6,8 @@ import vue from "@vitejs/plugin-vue"
 import vueJsx from "@vitejs/plugin-vue-jsx"
 import vueRouter from "unplugin-vue-router/vite"
 import vueDevTools from "vite-plugin-vue-devtools"
+import { viteMockServe } from "vite-plugin-mock"
+import svgLoader from "vite-svg-loader"
 
 const require = createRequire(import.meta.url)
 // https://vitejs.dev/config/
@@ -33,9 +35,11 @@ export default defineConfig({
     },
     server: {
         open: true,
-        devtools: true,
     },
     plugins: [
+        svgLoader({
+            defaultImport: "url",
+        }),
         vueRouter({
             // routesFolder: [
             //     {
@@ -59,5 +63,6 @@ export default defineConfig({
         }),
         vueJsx(),
         vueDevTools(),
+        viteMockServe({ mockPath: "./mock/" }),
     ],
 })

@@ -1,38 +1,73 @@
 <script lang="tsx">
-import { h, markRaw } from "vue"
-import { v4 } from "uuid"
+import { isVNode, markRaw } from "vue"
 import { type Options, VueDraggable } from "vue-draggable-plus"
+import { v4 } from "uuid"
+import { ElFormItem } from "element-plus"
 import { COMPONENT_COLLECTION } from "../config"
+import type { DrageComponent, FormItem, FormRow } from "../typings"
+import ProcessComponent from "./ProcessComponent.vue"
 
 export default {
+
     setup() {
-        type Components = typeof COMPONENT_COLLECTION
-        const components = markRaw<Components> (COMPONENT_COLLECTION)
-        const group: Options["group"] = { name: "component", pull: "clone", put: false }
-        function dataTransfer(element: Record<"name" | "id", string>) {
-            return {
-                id: v4(),
-                element,
+        const components = markRaw(COMPONENT_COLLECTION)
+        const group: Options["group"] = { name: "form", pull: "clone", put: false }
+        function dataTransfer(element: DrageComponent["element"]) {
+            const row: FormRow = {
+                id: Symbol(v4()),
+                items: [],
             }
+            const item: FormItem = {
+                id: Symbol(ElFormItem.name),
+                children: {
+                    id: isVNode(element)
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        ? Symbol(element.type.name)
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
+                        : Symbol(element.name),
+                    element: markRaw(element),
+                    parent: null as unknown as FormItem,
+                },
+                parent: row,
+            }
+
+            item.children.parent = item
+            row.items.push(item)
+            return row
         }
-        return () =>
-            (
-                <VueDraggable
-                    modelValue={components}
-                    ghostClass="ghost"
-                    group={group}
-                    sort={false}
-                    clone={dataTransfer}
-                >
-                    {components.map((Component) => {
+        return () => (
+            <section class="collection">
+                {
+                    components.map((Component: any) => {
+                        const compName = (Component?.type?.name || Component.name) as string
                         return (
-                            <div class="collection__item" key={Component.name}>
-                                <Component />
-                            </div>
+                            <section class="collection__item" key={compName}>
+                                <p class="collection__item__label">
+                                    {compName.replace("El", "")}
+                                </p>
+                                <VueDraggable
+                                    modelValue={[Component]}
+                                    ghostClass="ghost"
+                                    group={group}
+                                    sort={false}
+                                    clone={dataTransfer}
+                                    handle=".collection__item__comp"
+                                >
+                                    <section class="collection__item__comp">
+                                        <ProcessComponent class="collection__item__input" element={Component} />
+                                        {/* <section class="comp-drap-btn">
+                                            <ElIcon><Sort /></ElIcon>
+                                        </section> */}
+                                    </section>
+                                </VueDraggable>
+                            </section>
                         )
-                    })}
-                </VueDraggable>
-            )
+                    })
+                }
+            </section>
+        )
     },
 
 }
@@ -40,9 +75,54 @@ export default {
 
 <style lang="scss" scoped>
 .collection {
-  &__item {
+    height: 100%;
+    padding:0 5px;
+    overflow: auto;
+}
+
+.collection__item {
     box-sizing: border-box;
-    padding: 5px;
-  }
+    user-select: none;
+    transform: scale(0.9);
+    transform-origin: top left;
+
+    &__label {
+        padding:5px 8px;
+        font-size: $font-size-small;
+        color: gray;
+        transition: .8s;
+    }
+
+    &:hover &__label {
+        color: $color-primary;
+    }
+
+    &__comp {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 180px;
+        padding:5px 25px 5px 5px;
+        cursor: grab;
+        border-radius: 5px;
+        transition: .8s;
+
+        .comp-drap-btn {
+            cursor: grab;
+            visibility: hidden;
+            transition: .8s;
+            transform: rotate(90deg);
+        }
+
+    }
+
+    &:hover &__comp {
+            background: aliceblue;
+
+            .comp-drap-btn {
+                visibility: visible;
+            }
+        }
+
 }
 </style>
