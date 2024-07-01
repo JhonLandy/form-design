@@ -217,13 +217,11 @@ export default {
                                     <ElIcon>
                                         <Sort />
                                     </ElIcon>
-                                    move
                                 </ElButton>
                                 <ElButton type="danger" link onClick={() => onRowDelBtnClicked(row)} size="small">
                                     <ElIcon>
                                         <Delete />
                                     </ElIcon>
-                                    remove
                                 </ElButton>
                             </section>
                         </ElRow>
