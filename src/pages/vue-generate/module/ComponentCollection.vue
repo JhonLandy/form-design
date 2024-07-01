@@ -2,7 +2,7 @@
 import { isVNode, markRaw } from "vue"
 import { type Options, VueDraggable } from "vue-draggable-plus"
 import { v4 } from "uuid"
-import { ElFormItem } from "element-plus"
+import { ElAutocomplete, ElFormItem } from "element-plus"
 import { COMPONENT_COLLECTION } from "../config"
 import type { DrageComponent, FormItem, FormRow } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"

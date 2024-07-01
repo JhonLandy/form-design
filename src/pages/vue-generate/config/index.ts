@@ -1,4 +1,4 @@
-import { ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTransfer, ElTreeSelect, ElUpload } from "element-plus"
+import { ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
 import { h } from "vue"
 
 const SHOW_DATA = ["item1", "item2"]
