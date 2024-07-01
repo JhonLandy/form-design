@@ -113,22 +113,20 @@ export default {
             })
         })
         function onUpdateModelValue(key: any, val: string) {
-            let value = ""
             try {
-                val = /\{[\s\S]+\}/.test(val) ? JSON.parse(val) : val
+                if (/\{[\s\S]+\}/.test(val))
+                    val = JSON.parse(val)
             }
             catch {
-                value = val
             }
-            emit("update:modelValue", { ...props.modelValue, [key]: value })
+            emit("update:modelValue", { ...props.modelValue, [key]: val })
         }
         const modelValue = function (key: string) {
             let modelValue = props.modelValue[key]
 
             try {
-                if (typeof modelValue === "object") {
+                if (typeof modelValue === "object")
                     modelValue = JSON.stringify({ ...modelValue }, null, 2)
-                }
             }
             catch {}
 
