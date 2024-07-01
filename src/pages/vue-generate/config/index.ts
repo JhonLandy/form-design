@@ -1,4 +1,5 @@
 import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
+import { clone } from "ramda"
 import { h } from "vue"
 
 const SHOW_DATA = ["item1", "item2"]
@@ -12,7 +13,7 @@ export const MAX_COMPONENT_NUMBER = 2
 export const SIZE_OPTIONS = ["default", "small", "large"]
 export const POSITION_OPTIONS = ["top", "left", "bottom", "right"]
 export const BUTTON_TYPES_OPTIONS = ["primary", "success", "warning", "danger"]
-export const DATE_PICKER_TYPES_OPTIONS = ["year", "month", "date", "dates", "months", "years", "week", "datetime", "datetimerange", "daterange", "monthrange"]
+export const DATE_PICKER_TYPES_OPTIONS = ["year", "month", "date", "dates", "months", "years", "week", "datetimerange", "daterange", "monthrange"]
 export const DATE_TIME_PICKER_TYPES_OPTIONS = ["year", "month", "date", "week", "datetime", "datetimerange", "daterange"]
 export const TREE_SELECT_OPTIONS = [{
     value: "1",
@@ -56,6 +57,8 @@ export const SELECT_V2_OPTIONS = [{
     key: 2,
     label: `Option 2`,
 }]
+const ElDateTimePicker = clone(ElDatePicker)
+ElDateTimePicker.name = "ElDatetimePicker"
 /**
  * @description vue组件集合
  */
@@ -72,7 +75,8 @@ export const COMPONENT_COLLECTION = [
     h(ElButton, { type: "primary" }, {
         default: () => "默认按钮",
     }),
-    h(ElDatePicker, { placeholder: "日期选择器" }),
+    h(ElDatePicker, { type: "date", placeholder: "日期选择器" }),
+    h(ElDateTimePicker, { type: "datetime", placeholder: "日期时间选择器" }),
     h(ElTimePicker, { placeholder: "时间选择器" }),
     h(ElTimeSelect, { placeholder: "时间下拉框" }),
     h(ElDropdown, { splitButton: true }, {
