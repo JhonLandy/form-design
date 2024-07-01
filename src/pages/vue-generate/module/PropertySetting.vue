@@ -73,7 +73,7 @@ export default {
                     ])
                     return
                 }
-                if (compType === "ElTimePicker" && ["type"].includes(key)) {
+                if (compType === "ElDatetimePicker" && ["type"].includes(key)) {
                     commonInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
