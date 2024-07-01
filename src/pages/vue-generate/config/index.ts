@@ -1,4 +1,5 @@
-import { ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
+import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
+import { options } from "node_modules/axios/index.d.cts"
 import { h } from "vue"
 
 const SHOW_DATA = ["item1", "item2"]
@@ -49,14 +50,25 @@ export const TRANSER_DATA = [{
     label: `Option 2`,
     disabled: true,
 }]
+export const SELECT_V2_OPTIONS = [{
+    key: 1,
+    label: `Option 1`,
+    disabled: false,
+}, {
+    key: 2,
+    label: `Option 2`,
+    disabled: true,
+}]
 /**
  * @description vue组件集合
  */
 export const COMPONENT_COLLECTION = [
     h(ElInput, { placeholder: "输入框" }),
+    h(ElAutocomplete, { placeholder: "自动补全输入信息" }),
     h(ElSelect, { placeholder: "下拉框" }, {
         default: () => SHOW_DATA.map(value => h(ElOption, { value, label: value })),
     }),
+    h(ElSelectV2, { placeholder: "虚拟化数据下拉框", options: SELECT_V2_OPTIONS }),
     h(ElCascader, { placeholder: "级联选择下拉框", options: CASCADER_DATA }),
     h(ElTreeSelect, { placeholder: "树形选择下拉框", data: TREE_SELECT_OPTIONS }),
     h(ElInputNumber, { placeholder: "计数器" }),

@@ -2,7 +2,8 @@
 import { isVNode, markRaw } from "vue"
 import { type Options, VueDraggable } from "vue-draggable-plus"
 import { v4 } from "uuid"
-import { ElFormItem } from "element-plus"
+import { ElFormItem, ElIcon } from "element-plus"
+import { Link } from "@element-plus/icons-vue"
 import { COMPONENT_COLLECTION } from "../config"
 import { formatCompName } from "../scripts"
 import type { DrageComponent, FormItem, FormRow } from "../typings"
@@ -48,6 +49,7 @@ export default {
                         return (
                             <section class="collection__item" key={compName}>
                                 <a style="text-decoration: underline" target="_blank" class="collection__item__label" href={link} title={title}>
+                                    <ElIcon><Link /></ElIcon>
                                     {compName}
                                 </a>
                                 <VueDraggable
