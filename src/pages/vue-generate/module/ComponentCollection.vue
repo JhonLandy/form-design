@@ -12,7 +12,7 @@ import ProcessComponent from "./ProcessComponent.vue"
 export default {
 
     setup() {
-        const components = markRaw(COMPONENT_COLLECTION)
+        const components = markRaw<Array<DrageComponent["element"]>>(COMPONENT_COLLECTION)
         const group: Options["group"] = { name: "form", pull: "clone", put: false }
         function dataTransfer(element: DrageComponent["element"]) {
             const row: FormRow = {
@@ -42,12 +42,14 @@ export default {
         return () => (
             <section class="collection">
                 {
-                    components.map((Component: any) => {
+                    components.map((Component, index) => {
+                        // eslint-disable-next-line ts/ban-ts-comment
+                        // @ts-expect-error
                         const compName = formatCompName((Component?.type?.name || Component.name)).replace("el-", "")
                         const link = `https://element-plus.org/zh-CN/component/${compName}.html`
                         const title = `打开${compName}文档链接`
                         return (
-                            <section class="collection__item" key={compName}>
+                            <section class="collection__item" key={`${compName}-${index}`}>
                                 <a style="text-decoration: underline" target="_blank" class="collection__item__label" href={link} title={title}>
                                     <ElIcon><Link /></ElIcon>
                                     {compName}

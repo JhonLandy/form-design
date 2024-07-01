@@ -1,4 +1,4 @@
-import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
+import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxButton, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioButton, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
 import { clone } from "ramda"
 import { h } from "vue"
 
@@ -83,15 +83,18 @@ export const COMPONENT_COLLECTION = [
         default: () => h("span", "下拉菜单"),
         dropdown: () => h(ElDropdownMenu, null, { default: () => SHOW_DATA.map(value => h(ElDropdownItem, () => value)) }),
     }),
-    ElSwitch,
-    ElSlider,
-    h(ElRadioGroup, null, {
+    h(ElRadioGroup, { modelValue: "单选1" }, {
         default: () => RADIO_DATA.map(value => h(ElRadio, { value, label: value })),
     }),
-    h(ElCheckboxGroup, null, {
+    h(ElRadioGroup, { modelValue: "单选1" }, {
+        default: () => RADIO_DATA.map(value => h(ElRadioButton, { value, label: value })),
+    }),
+    h(ElCheckboxGroup, { modelValue: ["多选1"] }, {
         default: () => CHECKBOX_DATA.map(value => h(ElCheckbox, { value, label: value })),
     }),
-    ElRate,
+    h(ElCheckboxGroup, { modelValue: ["多选1"] }, {
+        default: () => CHECKBOX_DATA.map(value => h(ElCheckboxButton, { value, label: value })),
+    }),
     h(ElUpload, {
         fileList: [],
         action: "https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15",
@@ -104,4 +107,7 @@ export const COMPONENT_COLLECTION = [
     }),
     h(ElAvatar, { }, { default: () => "头像" }),
     h(ElDivider, {}, { default: () => "分线" }),
+    ElSwitch,
+    ElSlider,
+    ElRate,
 ]
