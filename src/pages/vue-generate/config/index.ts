@@ -1,5 +1,4 @@
 import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
-import { options } from "node_modules/axios/index.d.cts"
 import { h } from "vue"
 
 const SHOW_DATA = ["item1", "item2"]
