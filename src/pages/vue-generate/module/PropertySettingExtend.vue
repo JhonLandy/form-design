@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { markRaw } from "vue"
 import { ElDivider } from "element-plus"
 import PropertySetting from "./PropertySetting.vue"
 
@@ -14,10 +15,10 @@ function updateExtends(value: any) {
 
 <template>
     <section>
-        <PropertySetting :model-value="props.modelValue" @update:model-value="uodateModelValue" />
+        <PropertySetting :model-value="markRaw(props.modelValue)" @update:model-value="uodateModelValue" />
         <ElDivider content-position="left">
             扩展属性
         </ElDivider>
-        <PropertySetting :model-value="props.extends" @update:model-value="updateExtends" />
+        <PropertySetting :model-value="markRaw(props.extends)" @update:model-value="updateExtends" />
     </section>
 </template>

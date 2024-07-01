@@ -12,6 +12,8 @@ export const MAX_COMPONENT_NUMBER = 2
 export const SIZE_OPTIONS = ["default", "small", "large"]
 export const POSITION_OPTIONS = ["top", "left", "bottom", "right"]
 export const BUTTON_TYPES_OPTIONS = ["primary", "success", "warning", "danger"]
+export const DATE_PICKER_TYPES_OPTIONS = ["year", "month", "date", "dates", "months", "years", "week", "datetime", "datetimerange", "daterange", "monthrange"]
+export const DATE_TIME_PICKER_TYPES_OPTIONS = ["year", "month", "date", "week", "datetime", "datetimerange", "daterange"]
 /**
  * @description vue组件集合
  */
@@ -48,6 +50,6 @@ export const COMPONENT_COLLECTION = [
         default: () => h(ElButton, { type: "primary" }, {
             default: () => "上传文件",
         }),
-        tip: h("div", { class: "el-upload__tip" }, "jpg/png files with a size less than 500KB"),
+        tip: () => h("div", { class: "el-upload__tip" }, "jpg/png files with a size less than 500KB"),
     }),
 ]

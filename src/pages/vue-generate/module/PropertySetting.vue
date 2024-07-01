@@ -1,7 +1,7 @@
 <script  lang="tsx">
-import { Fragment, h, inject, ref, watchEffect } from "vue"
+import { Fragment, h, inject, markRaw, ref, watchEffect } from "vue"
 import { ElInput, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
-import { BUTTON_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS } from "../config"
+import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS } from "../config"
 import type { DrageComponent } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
 
@@ -36,29 +36,49 @@ export default {
                 const value = properties[key]
                 const valueType = Object.prototype.toString.call(value)
                 if (["width"].includes(key)) {
-                    numberInput.value.push([key, ElSlider, { marks: { 0: "auto", 1000: { label: "1000", style: { left: "99%" } } }, style: { height: "50px" }, size: "small", min: 0, max: 1000 }])
+                    numberInput.value.push([key, markRaw(ElSlider), { marks: { 0: "auto", 1000: { label: "1000", style: { left: "99%" } } }, style: { height: "50px" }, size: "small", min: 0, max: 1000 }])
                     return
                 }
                 if (["labelWidth", "compWidth"].includes(key)) {
-                    numberInput.value.push([key, ElSlider, { marks: { 0: "0", 1000: { label: "1000" } }, style: { height: "50px" }, size: "small", min: 0, max: 1000 }])
+                    numberInput.value.push([key, markRaw(ElSlider), { marks: { 0: "0", 1000: { label: "1000" } }, style: { height: "50px" }, size: "small", min: 0, max: 1000 }])
                     return
                 }
                 if (["size"].includes(key)) {
                     commonInput.value.push([
                         key,
-                        h(ElSelect, {}, {
+                        markRaw(h(ElSelect, {}, {
                             default: () => SIZE_OPTIONS.map(value => h(ElOption, { value, label: value })),
-                        }),
+                        })),
                         { size: "small", placeholder: "选择" },
                     ])
                     return
                 }
-                if (compType !== "ElInput" && ["type"].includes(key)) {
+                if (compType === "ElButton" && ["type"].includes(key)) {
                     commonInput.value.push([
                         key,
-                        h(ElSelect, {}, {
+                        markRaw(h(ElSelect, {}, {
                             default: () => BUTTON_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
-                        }),
+                        })),
+                        { size: "small", placeholder: "选择" },
+                    ])
+                    return
+                }
+                if (compType === "ElDatePicker" && ["type"].includes(key)) {
+                    commonInput.value.push([
+                        key,
+                        markRaw(h(ElSelect, {}, {
+                            default: () => DATE_PICKER_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
+                        })),
+                        { size: "small", placeholder: "选择" },
+                    ])
+                    return
+                }
+                if (compType === "ElTimePicker" && ["type"].includes(key)) {
+                    commonInput.value.push([
+                        key,
+                        markRaw(h(ElSelect, {}, {
+                            default: () => DATE_TIME_PICKER_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
+                        })),
                         { size: "small", placeholder: "选择" },
                     ])
                     return
@@ -66,29 +86,29 @@ export default {
                 if (["labelPosition", "requireAsteriskPosition", "placement"].includes(key)) {
                     commonInput.value.push([
                         key,
-                        h(ElSelect, {}, {
+                        markRaw(h(ElSelect, {}, {
                             default: () => POSITION_OPTIONS.map(value => h(ElOption, { value, label: value })),
-                        }),
+                        })),
                         { size: "small", placeholder: "选择" },
                     ])
                     return
                 }
                 switch (valueType) {
                     case "[object Number]":
-                        numberInput.value.push([key, ElSlider, { size: "small", min: 0 }])
+                        numberInput.value.push([key, markRaw(ElSlider), { size: "small", min: 0 }])
                         break
                     case "[object String]":
-                        commonInput.value.push([key, ElInput, { size: "small", placeholder: "未设置默认值" }])
+                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: "未设置默认值" }])
                         break
                     case "[object Boolean]":
-                        booleanInput.value.push([key, ElSwitch, { size: "small" }])
+                        booleanInput.value.push([key, markRaw(ElSwitch), { size: "small" }])
                         break
                     case "[object Array]":
                     case "[object Object]":
-                        ojectInput.value.push([key, ElInput, { type: "textarea", placeholder: "未设置默认值", rows: Object.keys(value).length + 2 }])
+                        ojectInput.value.push([key, markRaw(ElInput), { type: "textarea", placeholder: "未设置默认值", rows: Object.keys(value).length + 2 }])
                         break
                     default:
-                        commonInput.value.push([key, ElInput, { size: "small", placeholder: "未设置默认值" }])
+                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: "未设置默认值" }])
                 }
             })
         })

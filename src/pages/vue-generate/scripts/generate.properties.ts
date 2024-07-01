@@ -77,7 +77,7 @@ export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
                     }
                 }
                 else {
-                    Object.assign(props, { [key]: {} })
+                    Object.assign(props, { [key]: getDefaultValue(meta) })
                 }
         }
     }

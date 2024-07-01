@@ -196,12 +196,12 @@ onMounted(() => {
 <style lang="scss" scoped>
 .vue-generate {
   display: flex;
+  min-width: 800px;
   height: 100%;
 }
 
 .middle {
     flex: 8 8 auto;
-    min-width: 600px;
     height: 100%;
     padding: 5px;
     border-right: 1px solid $color-gray;

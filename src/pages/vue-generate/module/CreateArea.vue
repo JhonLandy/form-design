@@ -180,7 +180,7 @@ export default {
                                     type="transition"
                                     tag="sction"
                                     name="fade"
-                                     /* eslint-disable-next-line ts/ban-ts-comment */
+                                    /* eslint-disable-next-line ts/ban-ts-comment */
                                     /* @ts-expect-error */
                                     class="transition-fade"
                                 >
