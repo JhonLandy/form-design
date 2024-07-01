@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, h, isVNode, onMounted, provide, reactive, ref } from "vue"
-import { ElDialog, ElForm, ElFormItem, ElIcon, ElLoading, ElMessage, ElMessageBox } from "element-plus"
+import { ElDialog, ElForm, ElFormItem, ElIcon, ElLoading, ElMessageBox } from "element-plus"
 import { DArrowRight, Download, View } from "@element-plus/icons-vue"
 import { saveAs } from "file-saver"
 import { isEmpty, omit } from "ramda"
