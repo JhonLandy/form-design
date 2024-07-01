@@ -1,4 +1,4 @@
-import { ElButton, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSwitch, ElTimePicker, ElTimeSelect, ElUpload } from "element-plus"
+import { ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElRate, ElSelect, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTransfer, ElTreeSelect, ElUpload } from "element-plus"
 import { h } from "vue"
 
 const SHOW_DATA = ["item1", "item2"]
@@ -14,6 +14,41 @@ export const POSITION_OPTIONS = ["top", "left", "bottom", "right"]
 export const BUTTON_TYPES_OPTIONS = ["primary", "success", "warning", "danger"]
 export const DATE_PICKER_TYPES_OPTIONS = ["year", "month", "date", "dates", "months", "years", "week", "datetime", "datetimerange", "daterange", "monthrange"]
 export const DATE_TIME_PICKER_TYPES_OPTIONS = ["year", "month", "date", "week", "datetime", "datetimerange", "daterange"]
+export const TREE_SELECT_OPTIONS = [{
+    value: "1",
+    label: "一级",
+    children: [
+        {
+            value: "1-1",
+            label: "二级",
+            children: [
+                {
+                    value: "1-1-1",
+                    label: "三级",
+                },
+            ],
+        },
+    ],
+}]
+export const CASCADER_DATA = [{
+    value: "item1",
+    label: "item1",
+    children: [
+        {
+            value: "item2",
+            label: "item2",
+        },
+    ],
+}]
+export const TRANSER_DATA = [{
+    key: 1,
+    label: `Option 1`,
+    disabled: false,
+}, {
+    key: 2,
+    label: `Option 2`,
+    disabled: true,
+}]
 /**
  * @description vue组件集合
  */
@@ -22,6 +57,8 @@ export const COMPONENT_COLLECTION = [
     h(ElSelect, { placeholder: "下拉框" }, {
         default: () => SHOW_DATA.map(value => h(ElOption, { value, label: value })),
     }),
+    h(ElCascader, { placeholder: "级联选择下拉框", options: CASCADER_DATA }),
+    h(ElTreeSelect, { placeholder: "树形选择下拉框", data: TREE_SELECT_OPTIONS }),
     h(ElInputNumber, { placeholder: "计数器" }),
     h(ElButton, { type: "primary" }, {
         default: () => "默认按钮",
@@ -34,7 +71,7 @@ export const COMPONENT_COLLECTION = [
         dropdown: () => h(ElDropdownMenu, null, { default: () => SHOW_DATA.map(value => h(ElDropdownItem, () => value)) }),
     }),
     ElSwitch,
-    // ElSlider,
+    ElSlider,
     h(ElRadioGroup, null, {
         default: () => RADIO_DATA.map(value => h(ElRadio, { value, label: value })),
     }),
@@ -50,6 +87,8 @@ export const COMPONENT_COLLECTION = [
         default: () => h(ElButton, { type: "primary" }, {
             default: () => "上传文件",
         }),
-        tip: () => h("div", { class: "el-upload__tip" }, "jpg/png files with a size less than 500KB"),
+        tip: () => h("div", { class: "el-upload__tip" }, "这是一段tip"),
     }),
+    h(ElAvatar, { }, { default: () => "头像" }),
+    h(ElDivider, {}, { default: () => "分线" }),
 ]
