@@ -115,7 +115,7 @@ export default {
         function onUpdateModelValue(key: any, val: string) {
             let value = ""
             try {
-                value = /\{[\s\S]+\}/.test(val) ? JSON.parse(val) : val
+                val = /\{[\s\S]+\}/.test(val) ? JSON.parse(val) : val
             }
             catch {
                 value = val
@@ -123,9 +123,16 @@ export default {
             emit("update:modelValue", { ...props.modelValue, [key]: value })
         }
         const modelValue = function (key: string) {
-            // todo
-            const modelValue = props.modelValue[key]
-            return typeof modelValue === "object" ? JSON.stringify({ ...modelValue }, null, 2) : modelValue
+            let modelValue = props.modelValue[key]
+
+            try {
+                if (typeof modelValue === "object") {
+                    modelValue = JSON.stringify({ ...modelValue }, null, 2)
+                }
+            }
+            catch {}
+
+            return modelValue
         }
         return () => (
             <Fragment>
