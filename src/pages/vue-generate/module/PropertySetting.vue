@@ -112,8 +112,15 @@ export default {
                 }
             })
         })
-        function onUpdateModelValue(key: any, val: any) {
-            emit("update:modelValue", { ...props.modelValue, [key]: /\{[\s\S]+\}/.test(val) ? JSON.parse(val) : val })
+        function onUpdateModelValue(key: any, val: string) {
+            let value = ""
+            try {
+                value = /\{[\s\S]+\}/.test(val) ? JSON.parse(val) : val
+            }
+            catch {
+                value = val
+            }
+            emit("update:modelValue", { ...props.modelValue, [key]: value })
         }
         const modelValue = function (key: string) {
             // todo
