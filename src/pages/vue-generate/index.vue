@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, h, isVNode, onMounted, provide, reactive, ref } from "vue"
-import { ElDialog, ElForm, ElFormItem, ElIcon, ElLoading, ElMessageBox } from "element-plus"
+import { ElDialog, ElForm, ElFormItem, ElIcon, ElLoading, ElMessage, ElMessageBox } from "element-plus"
 import { DArrowRight, Download, View } from "@element-plus/icons-vue"
 import { saveAs } from "file-saver"
 import { isEmpty, omit } from "ramda"
@@ -114,6 +114,12 @@ onMounted(() => {
     // console.log("Form 定义的props:", ElForm.props)
     properties.formRoot = generateProps(omit(["rules", "model"], ElForm.props))
     // console.log("生成组件form props vModel对象:", properties.formRoot)
+})
+ElMessageBox({
+    message: h("span", [
+        "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
+        h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
+    ]),
 })
 </script>
 

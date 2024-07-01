@@ -4,6 +4,7 @@ import { type Options, VueDraggable } from "vue-draggable-plus"
 import { v4 } from "uuid"
 import { ElFormItem } from "element-plus"
 import { COMPONENT_COLLECTION } from "../config"
+import { formatCompName } from "../scripts"
 import type { DrageComponent, FormItem, FormRow } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
 
@@ -41,12 +42,14 @@ export default {
             <section class="collection">
                 {
                     components.map((Component: any) => {
-                        const compName = (Component?.type?.name || Component.name) as string
+                        const compName = formatCompName((Component?.type?.name || Component.name)).replace("el-", "")
+                        const link = `https://element-plus.org/zh-CN/component/${compName}.html`
+                        const title = `打开${compName}文档链接`
                         return (
                             <section class="collection__item" key={compName}>
-                                <p class="collection__item__label">
-                                    {compName.replace("El", "")}
-                                </p>
+                                <a style="text-decoration: underline" target="_blank" class="collection__item__label" href={link} title={title}>
+                                    {compName}
+                                </a>
                                 <VueDraggable
                                     modelValue={[Component]}
                                     ghostClass="ghost"
