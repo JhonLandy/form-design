@@ -5,7 +5,7 @@ import type { PropertiesRecord } from "../typings"
  * @description 提取props的默认值
  * @param { Prop} meta - 组件定义的props对象
  */
-function getDefaultValue(meta: Prop<any>) {
+export function getDefaultValue(meta: Prop<any>) {
     // eslint-disable-next-line ts/ban-ts-comment
     // @ts-expect-error
     const value = meta.default

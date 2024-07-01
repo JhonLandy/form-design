@@ -1,5 +1,6 @@
 import { equals, isNil, isNotEmpty } from "ramda"
 import type { DrageComponentProps } from "../typings"
+import { getDefaultValue } from "./generate.properties"
 
 /**
  * @description 提取用于生成代码的props值(不渲染没有传递、只有默认值的props)
@@ -13,9 +14,7 @@ export function filterProps(defineProps: any, props: DrageComponentProps) {
         const defineProp = defineProps[key]
         const propValue = props[key]
         if (Object.prototype.toString.call(defineProp) === "[object Object]") {
-            // eslint-disable-next-line ts/ban-ts-comment
-            // @ts-expect-error
-            const defautlValue = typeof defineProp.default === "function" ? defineProp.default() : defineProp.default
+            const defautlValue = getDefaultValue(defineProp)
             if (propValue && isNotEmpty(propValue) && !equals(propValue, defautlValue)) {
                 return { ...result, [key]: propValue }
             }
