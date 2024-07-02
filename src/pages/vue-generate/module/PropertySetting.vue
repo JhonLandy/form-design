@@ -116,7 +116,7 @@ export default {
             try {
                 if (type === "object") {
                     // 处理回车
-                    val = val.replace(/\n\}/, `,"key":"value"}`)
+                    val = val.replace(/\n\n\}/, `,"key":"value"}`)
                     val = JSON.parse(val)
                 }
                 emit("update:modelValue", { ...props.modelValue, [key]: val })
