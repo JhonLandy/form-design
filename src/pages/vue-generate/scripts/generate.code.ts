@@ -1,7 +1,7 @@
 import type { VNode } from "vue"
 import { isVNode } from "vue"
 import { ElForm, ElFormItem } from "element-plus"
-import { clone, isNotEmpty, mergeAll } from "ramda"
+import { clone, isNotNil, mergeAll } from "ramda"
 import type { DrageComponent, DrageComponentProps, FormItem, FormRow, PropertiesRecord } from "../typings"
 import { COMPONENT_DEFAULT_WIDTH } from "../config"
 import { filterProps } from "./filter.props"
@@ -96,7 +96,7 @@ export function getProperty(properties: PropertiesRecord, id: keyof PropertiesRe
         // eslint-disable-next-line ts/ban-ts-comment
         // @ts-expect-error
         const compWidth = formProps.compWidth
-        if (isNotEmpty(width) && width === 0) { // 0 就是auto
+        if (isNotNil(width) && width === 0) { // 0 就是auto
             // eslint-disable-next-line ts/ban-ts-comment
             // @ts-expect-error
             cloneProps.width = null
@@ -123,7 +123,7 @@ function renderProps(property?: DrageComponentProps | null): string {
     return keys.reduce((str, key) => {
         let propsValue = property ? property[key] : null
 
-        if (isNotEmpty(propsValue)) {
+        if (isNotNil(propsValue)) {
             const valueType = typeof propsValue
             if (["number", "boolean", "object"].includes(valueType)) {
                 key = `:${key}`

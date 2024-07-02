@@ -37,7 +37,7 @@ export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
         }
         switch (meta) {
             case null:
-                Object.assign(props, { [key]: null })
+                Object.assign(props, { [key]: "" })
                 break
             case Number:
                 Object.assign(props, { [key]: defaultValue })
