@@ -108,7 +108,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 200px;
         padding:5px 25px 5px 5px;
         cursor: grab;
         border-radius: 5px;
@@ -124,12 +123,12 @@ export default {
     }
 
     &:hover &__comp {
-            background: aliceblue;
+        background: aliceblue;
 
-            .comp-drap-btn {
-                visibility: visible;
-            }
+        .comp-drap-btn {
+            visibility: visible;
         }
+    }
 
 }
 </style>

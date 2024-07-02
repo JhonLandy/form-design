@@ -93,7 +93,7 @@ export default {
          */
         async function onRowDelBtnClicked(row: FormRow) {
             await ElMessageBox.confirm(
-                "当行全部组件将被删除。继续?",
+                "删除全部组件?",
                 "Tips",
                 {
                     confirmButtonText: "OK",
@@ -120,7 +120,7 @@ export default {
          */
         const onItemRemove = async (item: FormItem) => {
             await ElMessageBox.confirm(
-                "组件将被删除。继续?",
+                "删除组件?",
                 "Tips",
                 {
                     confirmButtonText: "OK",

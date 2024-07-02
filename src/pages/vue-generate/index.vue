@@ -138,7 +138,7 @@ ElMessageBox({
             />
         </section>
         <section class="aside-right">
-            <el-tabs v-model="tabsActive">
+            <el-tabs v-model="tabsActive" class="aside-tabs">
                 <el-tab-pane label="表单设置" name="form-setting">
                     <PropertySettingExtend v-model:extends="extendProps.formRoot" v-model="properties.formRoot" />
                 </el-tab-pane>
@@ -169,7 +169,7 @@ ElMessageBox({
             size="300"
         >
             <template #default>
-                <el-tabs v-model="drawerTabsActive">
+                <el-tabs v-model="drawerTabsActive" class="drawer-tabs">
                     <el-tab-pane label="属性配置" name="component-config">
                         <PropertySettingExtend v-model:extends="extendProps[curentCompId]" v-model="properties[curentCompId]" />
                     </el-tab-pane>
@@ -200,6 +200,10 @@ ElMessageBox({
 </template>
 
 <style lang="scss" scoped>
+$aside-left-width: 200px;
+$aside-right-width: 280px;
+$middle-width: calc(100% - $aside-left-width - $aside-right-width);
+
 .vue-generate {
   display: flex;
   min-width: 800px;
@@ -207,15 +211,17 @@ ElMessageBox({
 }
 
 .middle {
-    flex: 8 8 auto;
+    width: $middle-width;
     height: 100%;
     padding: 5px;
+    overflow: auto;
     border-right: 1px solid $color-gray;
     border-left: 1px solid $color-gray;
 }
 
 .aside-left {
-  display: inline;
+  display: inline-block;
+  width: $aside-left-width;
   height: 100%;
 }
 
@@ -224,6 +230,15 @@ ElMessageBox({
     height: 100%;
     padding: 5px;
     overflow: auto;
+}
+
+.aside-tabs, .drawer-tabs {
+    ::v-deep(.el-tabs__header) {
+        position: sticky!important;
+        top: -20px;
+        z-index: 1;
+        background: $color-white;
+    }
 }
 
 .drawer-footer {

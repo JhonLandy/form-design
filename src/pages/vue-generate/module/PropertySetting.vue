@@ -1,6 +1,6 @@
 <script  lang="tsx">
 import { Fragment, h, inject, markRaw, ref, watchEffect } from "vue"
-import { ElInput, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
+import { ElInput, ElMessage, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
 import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS } from "../config"
 import type { DrageComponent } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
@@ -112,14 +112,26 @@ export default {
                 }
             })
         })
-        function onUpdateModelValue(key: any, val: string) {
+        function onUpdateModelValue(key: any, val: string, type?: "object") {
             try {
-                if (/\{[\s\S]+\}/.test(val))
+                if (type === "object") {
+                    // 处理回车
+                    val = val.replace(/\n\}/, `,"key":"value"}`)
                     val = JSON.parse(val)
+                }
+                emit("update:modelValue", { ...props.modelValue, [key]: val })
             }
             catch {
+                try {
+                    // 处理最后一个属性是逗号
+                    val = val.replace(/\s/g, "").replace(/[,|\s]\}/, `,"key":"value"}`)
+                    val = JSON.parse(val)
+                    emit("update:modelValue", { ...props.modelValue, [key]: val })
+                }
+                catch {
+                    ElMessage.error("json格式异常,建议通过复制粘贴方式赋值")
+                }
             }
-            emit("update:modelValue", { ...props.modelValue, [key]: val })
         }
         const modelValue = function (key: string) {
             let modelValue = props.modelValue[key]
@@ -185,7 +197,7 @@ export default {
                                 </p>
                                 {/* eslint-disable-next-line ts/ban-ts-comment */}
                                 {/* @ts-expect-error */}
-                                <Input modelValue={modelValue(key)} onUpdate:modelValue={(val: any) => onUpdateModelValue(key, val)} {...inputProps} />
+                                <Input modelValue={modelValue(key)} onUpdate:modelValue={(val: any) => onUpdateModelValue(key, val, "object")} {...inputProps} />
                             </section>
                         ))
                     }
