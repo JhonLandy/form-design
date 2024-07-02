@@ -2,21 +2,6 @@ import type { VNode } from "vue"
 import { isVNode } from "vue"
 import { ElForm, ElFormItem } from "element-plus"
 import { clone, isNotEmpty, mergeAll } from "ramda"
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import * as prettier from "https://unpkg.com/prettier@3.3.2/standalone.mjs"
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import html from "https://unpkg.com/prettier@3.3.2/plugins/html.mjs"
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import babel from "https://unpkg.com/prettier@3.3.2/plugins/babel.mjs"
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import estree from "https://unpkg.com/prettier@3.3.2/plugins/estree.mjs"
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-import postcss from "https://unpkg.com/prettier@3.3.2/plugins/postcss.mjs"
 import type { DrageComponent, DrageComponentProps, FormItem, FormRow, PropertiesRecord } from "../typings"
 import { COMPONENT_DEFAULT_WIDTH } from "../config"
 import { filterProps } from "./filter.props"
@@ -28,6 +13,14 @@ interface CodeOutput {
     style: string
 }
 export async function templateFormat(template: any) {
+    const [prettier, html] = await Promise.all([
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/standalone.mjs"),
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/plugins/html.mjs"),
+    ])
     return await prettier.format(template, {
         tabWidth: 4,
         singleQuote: false,
@@ -39,6 +32,17 @@ export async function templateFormat(template: any) {
     })
 }
 export async function scriptFormat(script: any) {
+    const [prettier, estree, babel] = await Promise.all([
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/standalone.mjs"),
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/plugins/estree.mjs"),
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/plugins/babel.mjs"),
+    ])
     return await prettier.format(script, {
         tabWidth: 4,
         singleAttributePerLine: true,
@@ -51,6 +55,14 @@ export async function scriptFormat(script: any) {
     })
 }
 export async function styleFormat(script: any) {
+    const [prettier, postcss] = await Promise.all([
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/standalone.mjs"),
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        import("https://unpkg.com/prettier@3.3.2/plugins/postcss.mjs"),
+    ])
     return await prettier.format(script, {
         tabWidth: 4,
         singleAttributePerLine: true,
