@@ -9,6 +9,7 @@ import ComponentCollection from "./module/ComponentCollection.vue"
 import CreateArea from "./module/CreateArea.vue"
 import PropertySetting from "./module/PropertySetting.vue"
 import PropertySettingExtend from "./module/PropertySettingExtend.vue"
+import CodePreview from "./module/CodePreview.vue"
 import Preview from "./module/Preview.vue"
 import ExportForm from "./module/ExportForm.vue"
 import { generateCode, generateProps, vueFormat } from "./scripts"
@@ -23,6 +24,8 @@ const extendProps = reactive<PropertiesRecord>({ formRoot: {
 const curentItemId = ref<symbol>(Symbol(""))
 const curentCompId = ref<symbol>(Symbol(""))
 const dialogVisible = ref(false)
+const previewCode = ref("")
+const codePreviewVisible = ref(false)
 const drawerVisible = ref(false)
 const drawerTabsActive = ref("component-config")
 const tabsActive = ref("form-setting")
@@ -77,6 +80,30 @@ function setCurrentComp(Comp: DrageComponent) {
     curentCompId.value = Comp.id
 }
 async function download() {
+    // const renderData = createAreaRef.value.rows
+    // if (isEmpty(renderData)) {
+    //     ElMessageBox.alert("编辑区没有可提交的内容~", "Tip", {
+    //         type: "warning",
+    //         confirmButtonText: "OK",
+    //     })
+    //     return
+    // }
+    // const onSubmit = async (name: string) => {
+    //     const ins = ElLoading.service({ text: "正在生成..." })
+    //     const result = generateCode(createAreaRef.value.rows, properties, extendProps)
+    //     ins.setText("正在格式化...")
+    //     const code = await vueFormat(result).finally(() => ins.close())
+    //     const file = new File([code], name, { type: "text/plain;charset=utf-8" })
+    //     saveAs(file)
+    //     ElMessageBox.close()
+    //     codePreviewVisible.value = false
+    // }
+
+    // ElMessageBox({
+    //     message: h(ExportForm, { onSubmit, onCancel: () => dialogVisible.value = false }),
+    //     showConfirmButton: false,
+    // })
+
     const renderData = createAreaRef.value.rows
     if (isEmpty(renderData)) {
         ElMessageBox.alert("编辑区没有可提交的内容~", "Tip", {
@@ -85,19 +112,12 @@ async function download() {
         })
         return
     }
-    ElMessageBox({
-        message: h(ExportForm, { onSubmit, onCancel: () => ElMessageBox.close() }),
-        showConfirmButton: false,
-    })
-    async function onSubmit({ name }: { name: string }) {
-        const ins = ElLoading.service({ text: "正在生成..." })
-        const result = generateCode(createAreaRef.value.rows, properties, extendProps)
-        ins.setText("正在格式化...")
-        const code = await vueFormat(result).finally(() => ins.close())
-        const file = new File([code], name, { type: "text/plain;charset=utf-8" })
-        saveAs(file)
-        ElMessageBox.close()
-    }
+    const ins = ElLoading.service({ text: "正在生成..." })
+    const result = generateCode(createAreaRef.value.rows, properties, extendProps)
+    ins.setText("正在格式化...")
+    const code = await vueFormat(result).finally(() => ins.close())
+    previewCode.value = code
+    codePreviewVisible.value = true
 }
 async function preview() {
     const renderData = createAreaRef.value.rows
@@ -110,16 +130,28 @@ async function preview() {
     }
     dialogVisible.value = true
 }
+async function setPreviewCode() {
+
+}
 onMounted(() => {
     // console.log("Form 定义的props:", ElForm.props)
     properties.formRoot = generateProps(omit(["rules", "model"], ElForm.props))
     // console.log("生成组件form props vModel对象:", properties.formRoot)
 })
 ElMessageBox({
-    message: h("span", [
-        "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
-        h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
+    title: "公告",
+    message: h("div", [
+        h("section", [
+            h("h4", "新功能："),
+            h("h5", "1.下载->代码预览"),
+            h("h5", "2.下载->代码复制"),
+        ]),
+        h("span", [
+            "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
+            h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
+        ]),
     ]),
+    confirmButtonText: "知道了",
 })
 </script>
 
@@ -195,6 +227,22 @@ ElMessageBox({
                     </el-button>
                 </div>
             </template>
+        </ElDialog>
+        <ElDialog
+            v-model="codePreviewVisible"
+            width="800px"
+            lock-scroll
+            draggable
+            @open="setPreviewCode"
+        >
+            <CodePreview :content="previewCode" />
+            <!-- <template #footer>
+                <div class="dialog-footer">
+                    <el-button plain @click="download">
+                        关闭
+                    </el-button>
+                </div>
+            </template> -->
         </ElDialog>
     </main>
 </template>
