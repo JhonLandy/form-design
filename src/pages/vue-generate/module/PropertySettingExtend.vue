@@ -15,10 +15,7 @@ function updateExtends(value: any) {
 
 <template>
     <section>
-        <PropertySetting :model-value="markRaw(props.modelValue)" @update:model-value="uodateModelValue" />
-        <ElDivider content-position="left">
-            扩展属性
-        </ElDivider>
         <PropertySetting :model-value="markRaw(props.extends)" @update:model-value="updateExtends" />
+        <PropertySetting :model-value="markRaw(props.modelValue)" @update:model-value="uodateModelValue" />
     </section>
 </template>

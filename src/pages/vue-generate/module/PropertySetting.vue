@@ -114,8 +114,6 @@ export default {
                         booleanInput.value.push([key, markRaw(ElSwitch), { size: "small" }])
                         break
                     case "[object Array]":
-                        numberInput.value.push([key, markRaw(ElSelect), { size: "small", multiple: true }])
-                        break
                     case "[object Object]":
                         ojectInput.value.push([key, markRaw(ElInput), { type: "textarea", placeholder: "未设置默认值", rows: Object.keys(value).length + 2 }])
                         break
