@@ -146,6 +146,9 @@ ElMessageBox({
             h("p", "2.下载->代码复制"),
             h("p", "2.FormItem配置-> 设置多个校验规则"),
         ]),
+        h("section", [
+            h("h4", "更多功能，请联系邮箱：709364178@qq.com"),
+        ]),
         h("span", [
             "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
             h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
