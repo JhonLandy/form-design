@@ -1,5 +1,3 @@
-import { validate } from "uuid"
-
 export function moneyValidator(_: any, value: any, callback: any) {
     if (/^(?:[1-9]\d*|0)\.\d$|^[1-9]\d*$|^0$/.test(value)) {
         callback()
