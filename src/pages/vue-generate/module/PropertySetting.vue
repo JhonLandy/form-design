@@ -1,7 +1,7 @@
 <script  lang="tsx">
 import { Fragment, h, inject, markRaw, ref, watchEffect } from "vue"
 import { ElInput, ElMessage, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
-import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS } from "../config"
+import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS, VALIDATOR_OPTIONS } from "../config"
 import type { DrageComponent } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
 
@@ -93,6 +93,16 @@ export default {
                     ])
                     return
                 }
+                if (key === "rules") {
+                    numberInput.value.push([
+                        key,
+                        markRaw(h(ElSelect, { valueKey: "id" }, {
+                            default: () => VALIDATOR_OPTIONS.map(({ label, key }) => h(ElOption, { value: key, label })),
+                        })),
+                        { size: "small", multiple: true, placeholder: "选择校验方式" },
+                    ])
+                    return
+                }
                 switch (valueType) {
                     case "[object Number]":
                         numberInput.value.push([key, markRaw(ElSlider), { size: "small", min: 0 }])
@@ -104,6 +114,8 @@ export default {
                         booleanInput.value.push([key, markRaw(ElSwitch), { size: "small" }])
                         break
                     case "[object Array]":
+                        numberInput.value.push([key, markRaw(ElSelect), { size: "small", multiple: true }])
+                        break
                     case "[object Object]":
                         ojectInput.value.push([key, markRaw(ElInput), { type: "textarea", placeholder: "未设置默认值", rows: Object.keys(value).length + 2 }])
                         break
@@ -113,6 +125,10 @@ export default {
             })
         })
         function onUpdateModelValue(key: any, val: string, type?: "object") {
+            if (key === "validator") {
+                emit("update:modelValue", { ...props.modelValue, [key]: val })
+                return
+            }
             try {
                 if (type === "object") {
                     // 处理回车
@@ -137,7 +153,7 @@ export default {
             let modelValue = props.modelValue[key]
 
             try {
-                if (typeof modelValue === "object")
+                if (Object.prototype.toString.call(modelValue) === "[object Object]")
                     modelValue = JSON.stringify({ ...modelValue }, null, 2)
             }
             catch {}

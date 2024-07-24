@@ -11,6 +11,9 @@ export function filterProps(defineProps: any, props: DrageComponentProps) {
     }
     const keys = Object.keys(defineProps)
     return keys.reduce((result, key) => {
+        if (["width", "rules"].includes(key)) {
+            return result
+        }
         const defineProp = defineProps[key]
         const propValue = props[key]
         if (Object.prototype.toString.call(defineProp) === "[object Object]") {

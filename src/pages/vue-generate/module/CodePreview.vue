@@ -3,12 +3,14 @@ import { basicSetup } from "codemirror"
 import { EditorView, keymap } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
 import { vueLanguage } from "@codemirror/lang-vue"
+import { indentUnit } from "@codemirror/language"
 import { h, onMounted, ref, watch } from "vue"
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands"
+import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands"
 import { vscodeDark } from "@uiw/codemirror-theme-vscode"
 import { CopyDocument, Download } from "@element-plus/icons-vue"
 import { ElIcon, ElMessage, ElMessageBox, ElTooltip } from "element-plus"
 import { saveAs } from "file-saver"
+import { indentationMarkers } from "@replit/codemirror-indentation-markers"
 import ExportForm from "./ExportForm.vue"
 
 const props = defineProps<{
@@ -53,10 +55,12 @@ onMounted(() => {
         extensions: [
             basicSetup,
             EditorView.lineWrapping,
-            EditorView.editable.of(false),
+            indentUnit.of("    "),
+            // EditorView.editable.of(false),
             history(),
-            keymap.of([...defaultKeymap, ...historyKeymap]),
+            keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
             vueLanguage,
+            indentationMarkers(),
             vscodeDark,
         ],
     })

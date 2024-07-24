@@ -43,6 +43,7 @@ function generateProperties(item: FormItem) {
     const compId = item.children.id
     const defaultProps = {
         width: 0, // 0 就是auto
+
     }
     // console.log("item定义的props:", ElFormItem.props)
     if (isVNode(element)) {
@@ -59,7 +60,7 @@ function generateProperties(item: FormItem) {
         properties[compId] = generateProps(element.props)
         extendProps[compId] = defaultProps
     }
-    properties[itemId] = generateProps(ElFormItem.props)
+    properties[itemId] = { ...generateProps(ElFormItem.props), rules: [] }
     setCurrentItem(item)
     setCurrentComp(children)
     // console.log("item组件props vModel对象:", properties[itemId])
@@ -141,8 +142,9 @@ ElMessageBox({
     message: h("div", [
         h("section", [
             h("h4", "新功能："),
-            h("h5", "1.下载->代码预览"),
-            h("h5", "2.下载->代码复制"),
+            h("p", "1.下载->代码预览"),
+            h("p", "2.下载->代码复制"),
+            h("p", "2.FormItem配置-> 设置多个校验规则"),
         ]),
         h("span", [
             "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
@@ -200,10 +202,10 @@ ElMessageBox({
         >
             <template #default>
                 <el-tabs v-model="drawerTabsActive" class="drawer-tabs">
-                    <el-tab-pane label="属性配置" name="component-config">
+                    <el-tab-pane label="组件配置" name="component-config">
                         <PropertySettingExtend v-model:extends="extendProps[curentCompId]" v-model="properties[curentCompId]" />
                     </el-tab-pane>
-                    <el-tab-pane label="字段配置" name="field-config">
+                    <el-tab-pane label="FormItem配置" name="field-config">
                         <PropertySetting v-model="properties[curentItemId]" />
                     </el-tab-pane>
                 </el-tabs>
@@ -216,7 +218,7 @@ ElMessageBox({
                 />
             </template>
         </ElDrawer>
-        <ElDialog v-model="dialogVisible" title="预览" width="80%">
+        <ElDialog v-model="dialogVisible" title="预览" width="900">
             <Preview :form-data="formData" :properties="properties" :extend-properties="extendProps" />
             <template #footer>
                 <div class="dialog-footer">
@@ -228,7 +230,7 @@ ElMessageBox({
         </ElDialog>
         <ElDialog
             v-model="codePreviewVisible"
-            width="800px"
+            width="900px"
             lock-scroll
             draggable
             @open="setPreviewCode"

@@ -1,5 +1,6 @@
 import type { VNode } from "vue"
 import { isVNode } from "vue"
+import type { FormItemRule } from "element-plus"
 import { ElForm, ElFormItem } from "element-plus"
 import { clone, isNotNil, mergeAll } from "ramda"
 import type { DrageComponent, DrageComponentProps, FormItem, FormRow, PropertiesRecord } from "../typings"
@@ -248,27 +249,64 @@ export function generateCode(rows: FormRow[], properties: PropertiesRecord, exte
 export function generateTemplate(rows: FormRow[], properties: PropertiesRecord, extendProperties: PropertiesRecord) {
     const formProps = filterProps(ElForm.props, properties.formRoot)
     return `
-    <el-form class="form-root" :model="form" ${renderProps(formProps)}>
+    <el-form class="form-root" :model="form" :rules="rules" ${renderProps(formProps)}>
     ${
         rows.map(({ items }) => `<el-row>${items.map(item => renderItem(item, properties, extendProperties)).join("")}</el-row>`).join("")
     }
     </el-form>
     `
 }
-export function generateScript(rows: FormRow[], properties: any) {
+interface ScriptResult {
+    field?: string
+    rules?: Array<FormItemRule>
+}
+export function generateScript(rows: FormRow[], properties: PropertiesRecord) {
+    const validatorSet = new Set<FormItemRule["validator"]>()
+    const itemsData = rows.reduce((result: Array<ScriptResult>, row) => {
+        const items = row.items
+        items.forEach((item) => {
+            let itemData: ScriptResult
+            const props = properties[item.id]
+            const field = props ? props.prop : null
+            if (field) {
+                const rules = (props ? props.rules : []) as Array<FormItemRule>
+                itemData = { field, rules }
+                rules.forEach(({ validator }) => validatorSet.add(validator))
+                result.push(itemData)
+            }
+        })
+        return result
+    }, [])
+    const validFuncList = [...validatorSet]
     return `
     export default {
+
         data() {
+            ${
+                validFuncList.map((f) => {
+                    return f?.toString()
+                }).join("\n")
+            }
             return {
                 form: {
-                ${rows.map((row) => {
-                    return row.items.reduce((str, item) => {
-                        const props = properties[item.id]
-                        const field = props.prop
-                        return field ? `${str}${field}:"",` : str
-                    }, "")
-                }).join("")
-                }
+                    ${itemsData.reduce((str, { field }) => {
+                        return `${str}${field}:"",`
+                    }, "")}
+                },
+                rules: {
+                    ${itemsData.reduce((str, { field, rules }) => {
+                        const rulesJson = JSON.stringify(rules, (key, value) => {
+                            if (key === "id") {
+                                return
+                            }
+                            if (key === "validator") {
+                                return value.name
+                            }
+                            return value
+                        })
+                        const rulesStr = rulesJson.replace(/"validator":"(.*?)"/g, "validator: $1")
+                        return field ? `${str}${field}:${rulesStr},` : str
+                    }, "")}
                 }
             }
         }

@@ -34,7 +34,7 @@ export default defineConfig({
         },
     },
     server: {
-        open: true,
+        open: "/vue-generate",
     },
     plugins: [
         svgLoader({

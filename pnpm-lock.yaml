@@ -14,12 +14,6 @@ importers:
       '@codemirror/commands':
         specifier: ^6.6.0
         version: 6.6.0
-      '@codemirror/lang-json':
-        specifier: ^6.0.1
-        version: 6.0.1
-      '@codemirror/lang-markdown':
-        specifier: ^6.2.5
-        version: 6.2.5
       '@codemirror/lang-vue':
         specifier: ^0.1.3
         version: 0.1.3
@@ -32,15 +26,15 @@ importers:
       '@codemirror/state':
         specifier: ^6.4.1
         version: 6.4.1
-      '@codemirror/theme-one-dark':
-        specifier: ^6.1.2
-        version: 6.1.2
       '@codemirror/view':
         specifier: ^6.28.4
         version: 6.28.4
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.4.31(typescript@5.5.2))
+      '@replit/codemirror-indentation-markers':
+        specifier: ^6.5.3
+        version: 6.5.3(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)
       '@uiw/codemirror-theme-vscode':
         specifier: ^4.23.0
         version: 4.23.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)
@@ -56,18 +50,6 @@ importers:
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
-      github-markdown-css:
-        specifier: ^5.6.1
-        version: 5.6.1
-      highlight.js:
-        specifier: ^11.10.0
-        version: 11.10.0
-      marked:
-        specifier: ^13.0.2
-        version: 13.0.2
-      marked-highlight:
-        specifier: ^2.1.3
-        version: 2.1.3(marked@13.0.2)
       qs:
         specifier: ^6.12.1
         version: 6.12.1
@@ -80,9 +62,6 @@ importers:
       vue:
         specifier: ^3.4.21
         version: 3.4.31(typescript@5.5.2)
-      vue-codemirror6:
-        specifier: ^1.3.4
-        version: 1.3.4(@lezer/common@1.2.1)(vue@3.4.31(typescript@5.5.2))
       vue-draggable-plus:
         specifier: ^0.4.1
         version: 0.4.1(@types/sortablejs@1.15.8)
@@ -501,9 +480,6 @@ packages:
   '@codemirror/state@6.4.1':
     resolution: {integrity: sha512-QkEyUiLhsJoZkbumGZlswmAhA7CBU02Wrz7zvH4SrcifbsqwlXShVXg65f3v/ts57W3dqyamEriMhij1Z3Zz4A==, tarball: https://registry.npmmirror.com/@codemirror/state/-/state-6.4.1.tgz}
 
-  '@codemirror/theme-one-dark@6.1.2':
-    resolution: {integrity: sha512-F+sH0X16j/qFLMAfbciKTxVOwkdAS336b7AXTKOZhy8BR3eH/RelsnLgLFINrpST63mmN2OuwUt0W2ndUgYwUA==, tarball: https://registry.npmmirror.com/@codemirror/theme-one-dark/-/theme-one-dark-6.1.2.tgz}
-
   '@codemirror/view@6.28.4':
     resolution: {integrity: sha512-QScv95fiviSQ/CaVGflxAvvvDy/9wi0RFyDl4LkHHWiMr/UPebyuTspmYSeN5Nx6eujcPYwsQzA6ZIZucKZVHQ==, tarball: https://registry.npmmirror.com/@codemirror/view/-/view-6.28.4.tgz}
 
@@ -819,6 +795,13 @@ packages:
 
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
+
+  '@replit/codemirror-indentation-markers@6.5.3':
+    resolution: {integrity: sha512-hL5Sfvw3C1vgg7GolLe/uxX5T3tmgOA3ZzqlMv47zjU1ON51pzNWiVbS22oh6crYhtVhv8b3gdXwoYp++2ilHw==, tarball: https://registry.npmmirror.com/@replit/codemirror-indentation-markers/-/codemirror-indentation-markers-6.5.3.tgz}
+    peerDependencies:
+      '@codemirror/language': ^6.0.0
+      '@codemirror/state': ^6.0.0
+      '@codemirror/view': ^6.0.0
 
   '@rollup/pluginutils@5.1.0':
     resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
@@ -1910,10 +1893,6 @@ packages:
   get-tsconfig@4.7.5:
     resolution: {integrity: sha512-ZCuZCnlqNzjb4QprAzXKdpp/gh6KTxSJuw3IBsPnV/7fV4NxC9ckB+vPTt8w7fJA0TaSD7c55BR47JD6MEDyDw==}
 
-  github-markdown-css@5.6.1:
-    resolution: {integrity: sha512-DItLFgHd+s7HQmk63YN4/TdvLeRqk1QP7pPKTTPrDTYoI5x7f/luJWSOZxesmuxBI2srHp8RDyoZd+9WF+WK8Q==, tarball: https://registry.npmmirror.com/github-markdown-css/-/github-markdown-css-5.6.1.tgz}
-    engines: {node: '>=10'}
-
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -1992,10 +1971,6 @@ packages:
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
-
-  highlight.js@11.10.0:
-    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==, tarball: https://registry.npmmirror.com/highlight.js/-/highlight.js-11.10.0.tgz}
-    engines: {node: '>=12.0.0'}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -2245,16 +2220,6 @@ packages:
 
   magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
-
-  marked-highlight@2.1.3:
-    resolution: {integrity: sha512-t35JWm2u8HanOJ+gSJBAYQ0Jgr3vy+gl7ORAXN8bSEQFHl5FYXH0A7YXVMrfhmKaSuBSy6LidXECn3U9Qv/dHA==, tarball: https://registry.npmmirror.com/marked-highlight/-/marked-highlight-2.1.3.tgz}
-    peerDependencies:
-      marked: '>=4 <14'
-
-  marked@13.0.2:
-    resolution: {integrity: sha512-J6CPjP8pS5sgrRqxVRvkCIkZ6MFdRIjDkwUwgJ9nL2fbmM6qGQeB2C16hi8Cc9BOzj6xXzy0jyi0iPIfnMHYzA==, tarball: https://registry.npmmirror.com/marked/-/marked-13.0.2.tgz}
-    engines: {node: '>= 18'}
-    hasBin: true
 
   mathml-tag-names@2.1.3:
     resolution: {integrity: sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==}
@@ -3080,12 +3045,6 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
-  vue-codemirror6@1.3.4:
-    resolution: {integrity: sha512-Gmu2t4Exz3pQdtAsb7wINREx2nswNW+FV+q8S1wmsmeC3OLio5RkybRLsErP1b8+suqsVD/7t0Cx/XmBpQnHJA==, tarball: https://registry.npmmirror.com/vue-codemirror6/-/vue-codemirror6-1.3.4.tgz}
-    engines: {yarn: '>=1.22.19'}
-    peerDependencies:
-      vue: ^2.7.14 || ^3.4
-
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==, tarball: https://registry.npmmirror.com/vue-demi/-/vue-demi-0.14.8.tgz}
     engines: {node: '>=12'}
@@ -3751,13 +3710,6 @@ snapshots:
 
   '@codemirror/state@6.4.1': {}
 
-  '@codemirror/theme-one-dark@6.1.2':
-    dependencies:
-      '@codemirror/language': 6.10.2
-      '@codemirror/state': 6.4.1
-      '@codemirror/view': 6.28.4
-      '@lezer/highlight': 1.2.0
-
   '@codemirror/view@6.28.4':
     dependencies:
       '@codemirror/state': 6.4.1
@@ -4057,6 +4009,12 @@ snapshots:
   '@pkgr/core@0.1.1': {}
 
   '@polka/url@1.0.0-next.25': {}
+
+  '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)':
+    dependencies:
+      '@codemirror/language': 6.10.2
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.28.4
 
   '@rollup/pluginutils@5.1.0(rollup@4.18.0)':
     dependencies:
@@ -5338,8 +5296,6 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  github-markdown-css@5.6.1: {}
-
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -5413,8 +5369,6 @@ snapshots:
       function-bind: 1.1.2
 
   he@1.2.0: {}
-
-  highlight.js@11.10.0: {}
 
   hookable@5.5.3: {}
 
@@ -5612,12 +5566,6 @@ snapshots:
   magic-string@0.30.10:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
-
-  marked-highlight@2.1.3(marked@13.0.2):
-    dependencies:
-      marked: 13.0.2
-
-  marked@13.0.2: {}
 
   mathml-tag-names@2.1.3: {}
 
@@ -6452,15 +6400,6 @@ snapshots:
       sass: 1.77.6
 
   vscode-uri@3.0.8: {}
-
-  vue-codemirror6@1.3.4(@lezer/common@1.2.1)(vue@3.4.31(typescript@5.5.2)):
-    dependencies:
-      codemirror: 6.0.1(@lezer/common@1.2.1)
-      vue: 3.4.31(typescript@5.5.2)
-      vue-demi: 0.14.8(vue@3.4.31(typescript@5.5.2))
-    transitivePeerDependencies:
-      - '@lezer/common'
-      - '@vue/composition-api'
 
   vue-demi@0.14.8(vue@3.4.31(typescript@5.5.2)):
     dependencies:

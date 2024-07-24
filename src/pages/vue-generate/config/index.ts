@@ -1,6 +1,7 @@
 import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxButton, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioButton, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
 import { clone } from "ramda"
 import { h } from "vue"
+import { DATE_RULE, EMAIL_RULE, MONEY_RULE, NUMBER_RULE, PERCENT_RULE, REQUIRED_RULE } from "../validators"
 
 const SHOW_DATA = ["item1", "item2"]
 const RADIO_DATA = ["单选1", "单选2"]
@@ -57,6 +58,32 @@ export const SELECT_V2_OPTIONS = [{
     key: 2,
     label: `Option 2`,
 }]
+export const VALIDATOR_OPTIONS = [
+    {
+        key: REQUIRED_RULE,
+        label: `非空验证`,
+    },
+    {
+        key: NUMBER_RULE,
+        label: `数字验证`,
+    },
+    {
+        key: EMAIL_RULE,
+        label: `邮箱验证`,
+    },
+    {
+        key: DATE_RULE,
+        label: `日期验证`,
+    },
+    {
+        key: MONEY_RULE,
+        label: `货币验证`,
+    },
+    {
+        key: PERCENT_RULE,
+        label: `百分比验证`,
+    },
+]
 const ElDateTimePicker = clone(ElDatePicker)
 ElDateTimePicker.name = "ElDatetimePicker"
 /**
