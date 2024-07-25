@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { markRaw } from "vue"
-import { ElDivider } from "element-plus"
 import PropertySetting from "./PropertySetting.vue"
 
 const props = defineProps(["modelValue", "extends"])
