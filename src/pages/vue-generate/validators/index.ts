@@ -6,7 +6,7 @@ function moneyValidator(_: any, value: any, callback: any) {
         callback("请输入正确的货币格式")
     }
 }
-moneyValidator.name = "moneyValidator"
+moneyValidator.validName = "moneyValidator"
 moneyValidator.content = `
 function moneyValidator(_: any, value: any, callback: any) {
     if (/^(?:[1-9]\d*|0)\.\d$|^[1-9]\d*$|^0$/.test(value)) {
@@ -25,7 +25,7 @@ function percentValidator(_: any, value: any, callback: any) {
         callback("请输入正确的百分比格式")
     }
 }
-percentValidator.name = "percentValidator"
+percentValidator.validName = "percentValidator"
 percentValidator.content = `
     function percentValidator(_: any, value: any, callback: any) {
         if (/^(?:[1-9]\d*|0)\.\d{1,2}$|^[1-9]\d*$|^0$/.test(value)) {
@@ -37,6 +37,7 @@ percentValidator.content = `
     }
 `
 export { percentValidator, moneyValidator }
+
 export const MONEY_RULE = { id: "money", validator: moneyValidator }
 
 export const PERCENT_RULE = { id: "percent", validator: percentValidator }

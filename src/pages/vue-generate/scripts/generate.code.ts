@@ -302,7 +302,7 @@ export function generateScript(rows: FormRow[], properties: PropertiesRecord) {
                                 return
                             }
                             if (key === "validator") {
-                                return value.name
+                                return value.validName
                             }
                             return value
                         })
