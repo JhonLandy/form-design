@@ -1,4 +1,4 @@
-export function moneyValidator(_: any, value: any, callback: any) {
+function moneyValidator(_: any, value: any, callback: any) {
     if (/^(?:[1-9]\d*|0)\.\d$|^[1-9]\d*$|^0$/.test(value)) {
         callback()
     }
@@ -6,7 +6,18 @@ export function moneyValidator(_: any, value: any, callback: any) {
         callback("请输入正确的货币格式")
     }
 }
-export function percentValidator(_: any, value: any, callback: any) {
+moneyValidator.name = "moneyValidator"
+moneyValidator.content = `
+function moneyValidator(_: any, value: any, callback: any) {
+    if (/^(?:[1-9]\d*|0)\.\d$|^[1-9]\d*$|^0$/.test(value)) {
+        callback()
+    }
+    else {
+        callback("请输入正确的货币格式")
+    }
+}
+`
+function percentValidator(_: any, value: any, callback: any) {
     if (/^(?:[1-9]\d*|0)\.\d{1,2}$|^[1-9]\d*$|^0$/.test(value)) {
         callback()
     }
@@ -14,7 +25,18 @@ export function percentValidator(_: any, value: any, callback: any) {
         callback("请输入正确的百分比格式")
     }
 }
-
+percentValidator.name = "percentValidator"
+percentValidator.content = `
+    function percentValidator(_: any, value: any, callback: any) {
+        if (/^(?:[1-9]\d*|0)\.\d{1,2}$|^[1-9]\d*$|^0$/.test(value)) {
+            callback()
+        }
+        else {
+            callback("请输入正确的百分比格式")
+        }
+    }
+`
+export { percentValidator, moneyValidator }
 export const MONEY_RULE = { id: "money", validator: moneyValidator }
 
 export const PERCENT_RULE = { id: "percent", validator: percentValidator }

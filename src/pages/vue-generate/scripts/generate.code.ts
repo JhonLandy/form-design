@@ -284,7 +284,9 @@ export function generateScript(rows: FormRow[], properties: PropertiesRecord) {
         data() {
             ${
                 validFuncList.map((f) => {
-                    return f?.toString()
+                    // eslint-disable-next-line ts/ban-ts-comment
+                    // @ts-expect-error
+                    return f?.content
                 }).join("\n")
             }
             return {
