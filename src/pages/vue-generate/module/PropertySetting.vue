@@ -111,17 +111,17 @@ export default {
                         numberInput.value.push([key, markRaw(ElSlider), { size: "small", min: 0 }])
                         break
                     case "[object String]":
-                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: "未设置默认值" }])
+                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: key }])
                         break
                     case "[object Boolean]":
                         booleanInput.value.push([key, markRaw(ElSwitch), { size: "small" }])
                         break
                     case "[object Array]":
                     case "[object Object]":
-                        ojectInput.value.push([key, markRaw(ElInput), { type: "textarea", placeholder: "未设置默认值", rows: Object.keys(value).length + 2 }])
+                        ojectInput.value.push([key, markRaw(ElInput), { type: "textarea", placeholder: key, rows: Object.keys(value).length + 2 }])
                         break
                     default:
-                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: "未设置默认值" }])
+                        commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: key }])
                 }
             })
         })
@@ -146,13 +146,12 @@ export default {
                     emit("update:modelValue", { ...props.modelValue, [key]: val })
                 }
                 catch {
-                    ElMessage.error("json格式异常,建议通过复制粘贴方式赋值")
+                    ElMessage.error(`属性${t(key)}配置失败： json格式异常,建议通过复制粘贴方式赋值`)
                 }
             }
         }
         const modelValue = function (key: string) {
             let modelValue = props.modelValue[key]
-
             try {
                 if (Object.prototype.toString.call(modelValue) === "[object Object]")
                     modelValue = JSON.stringify({ ...modelValue }, null, 2)

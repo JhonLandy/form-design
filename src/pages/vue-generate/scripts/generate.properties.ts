@@ -29,7 +29,7 @@ export function getDefaultValue(meta: Prop<any>) {
  * @description 生成组件定义的props对象值
  */
 export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
-    function setPropValue(props: PropertiesRecord, key: string, meta: Prop<string>, defaultValue?: any) {
+    function setPropValue(props: PropertiesRecord, key: string, meta: Prop<string | boolean>, defaultValue?: any) {
         if (![null, undefined].includes(defaultValue)) {
             // 如果有默认值，直接取默认值，不用再做类型判断
             Object.assign(props, { [key]: defaultValue })
@@ -65,7 +65,10 @@ export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
                     const type = meta.type as any
 
                     if (Array.isArray(type)) {
-                        if (type.includes(String)) {
+                        if (type.includes(Boolean)) {
+                            setPropValue(props, key, Boolean, getDefaultValue(meta))
+                        }
+                        else if (type.includes(String)) {
                             setPropValue(props, key, String, getDefaultValue(meta))
                         }
                         else {
