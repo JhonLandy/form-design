@@ -1,6 +1,7 @@
 <script  lang="tsx">
 import { Fragment, h, inject, markRaw, ref, watchEffect } from "vue"
 import { ElInput, ElMessage, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
+import { useI18n } from "vue-i18n"
 import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS, VALIDATOR_OPTIONS } from "../config"
 import type { DrageComponent } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
@@ -11,6 +12,7 @@ export default {
     props: ["modelValue", "extends"],
     emits: ["update:modelValue", "update:extends"],
     setup(props, { emit }) {
+        const { t } = useI18n()
         const getCurrentCompType = inject<() => string>("getCurrentCompType")
 
         const commonInput = ref<Settings>([])
@@ -18,6 +20,7 @@ export default {
         const booleanInput = ref<Settings>([])
         const ojectInput = ref<Settings>([])
         function renderLabel(label: string) {
+            label = t(label)
             const len = label.length
             const maxlen = 18
             return len > maxlen ? <ElTooltip content={label}>{[label.substring(0, maxlen - 3), "..."].join("")}</ElTooltip> : label
