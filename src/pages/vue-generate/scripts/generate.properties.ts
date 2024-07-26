@@ -21,7 +21,7 @@ export function getDefaultValue(meta: Prop<any>) {
         }
     }
     else {
-        return undefined
+        return null
     }
 }
 
@@ -77,7 +77,7 @@ export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
                     }
                 }
                 else {
-                    Object.assign(props, { [key]: getDefaultValue(meta) })
+                    Object.assign(props, { [key]: getDefaultValue(meta) || {} })
                 }
         }
     }
