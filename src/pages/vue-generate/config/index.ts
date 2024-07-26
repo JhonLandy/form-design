@@ -3,7 +3,7 @@ import { clone } from "ramda"
 import { h } from "vue"
 import { DATE_RULE, EMAIL_RULE, MONEY_RULE, NUMBER_RULE, PERCENT_RULE, REQUIRED_RULE } from "../validators"
 
-const SHOW_DATA = ["item1", "item2"]
+const SHOW_DATA = ["选项1", "选项2"]
 const RADIO_DATA = ["单选1", "单选2"]
 const CHECKBOX_DATA = ["多选1", "多选2"]
 /**
@@ -58,6 +58,16 @@ export const SELECT_V2_OPTIONS = [{
     key: 2,
     label: `Option 2`,
 }]
+export const EFFECT_OPTIONS = [
+    {
+        key: "light",
+        label: `亮白`,
+    },
+    {
+        key: "dark",
+        label: `暗黑`,
+    },
+]
 export const VALIDATOR_OPTIONS = [
     {
         key: REQUIRED_RULE,
@@ -95,7 +105,7 @@ export const COMPONENT_COLLECTION = [
     h(ElSelect, { placeholder: "下拉框" }, {
         default: () => SHOW_DATA.map(value => h(ElOption, { value, label: value })),
     }),
-    h(ElSelectV2, { modelValue: "", placeholder: "虚拟化数据下拉框", options: SELECT_V2_OPTIONS }),
+    h(ElSelectV2, { placeholder: "虚拟化数据下拉框", options: SELECT_V2_OPTIONS }),
     h(ElCascader, { placeholder: "级联选择下拉框", options: CASCADER_DATA }),
     h(ElTreeSelect, { placeholder: "树形选择下拉框", data: TREE_SELECT_OPTIONS }),
     h(ElInputNumber, { placeholder: "计数器" }),

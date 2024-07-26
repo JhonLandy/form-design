@@ -2,7 +2,7 @@
 import { Fragment, h, inject, markRaw, ref, watchEffect } from "vue"
 import { ElInput, ElMessage, ElOption, ElSelect, ElSlider, ElSwitch, ElTooltip } from "element-plus"
 import { useI18n } from "vue-i18n"
-import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS, VALIDATOR_OPTIONS } from "../config"
+import { BUTTON_TYPES_OPTIONS, DATE_PICKER_TYPES_OPTIONS, DATE_TIME_PICKER_TYPES_OPTIONS, EFFECT_OPTIONS, POSITION_OPTIONS, SIZE_OPTIONS, VALIDATOR_OPTIONS } from "../config"
 import type { DrageComponent } from "../typings"
 import ProcessComponent from "./ProcessComponent.vue"
 
@@ -38,6 +38,7 @@ export default {
             keys.forEach((key) => {
                 const value = properties[key]
                 const valueType = Object.prototype.toString.call(value)
+
                 if (["width"].includes(key)) {
                     numberInput.value.push([key, markRaw(ElSlider), { marks: { 0: "auto", 1000: { label: "1000", style: { left: "99%" } } }, style: { height: "50px" }, size: "small", min: 0, max: 1000 }])
                     return
@@ -47,7 +48,7 @@ export default {
                     return
                 }
                 if (["size"].includes(key)) {
-                    commonInput.value.push([
+                    numberInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
                             default: () => SIZE_OPTIONS.map(value => h(ElOption, { value, label: value })),
@@ -57,7 +58,7 @@ export default {
                     return
                 }
                 if (compType === "ElButton" && ["type"].includes(key)) {
-                    commonInput.value.push([
+                    numberInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
                             default: () => BUTTON_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
@@ -67,7 +68,7 @@ export default {
                     return
                 }
                 if (compType === "ElDatePicker" && ["type"].includes(key)) {
-                    commonInput.value.push([
+                    numberInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
                             default: () => DATE_PICKER_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
@@ -77,7 +78,7 @@ export default {
                     return
                 }
                 if (compType === "ElDatetimePicker" && ["type"].includes(key)) {
-                    commonInput.value.push([
+                    numberInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
                             default: () => DATE_TIME_PICKER_TYPES_OPTIONS.map(value => h(ElOption, { value, label: value })),
@@ -87,7 +88,7 @@ export default {
                     return
                 }
                 if (["labelPosition", "requireAsteriskPosition", "placement"].includes(key)) {
-                    commonInput.value.push([
+                    numberInput.value.push([
                         key,
                         markRaw(h(ElSelect, {}, {
                             default: () => POSITION_OPTIONS.map(value => h(ElOption, { value, label: value })),
@@ -95,6 +96,15 @@ export default {
                         { size: "small", placeholder: "选择" },
                     ])
                     return
+                }
+                if (key === "effect") {
+                    numberInput.value.push([
+                        key,
+                        markRaw(h(ElSelect, {}, {
+                            default: () => EFFECT_OPTIONS.map(({ label, key }) => h(ElOption, { value: key, label })),
+                        })),
+                        { size: "small", multiple: true, placeholder: "选择主题" },
+                    ])
                 }
                 if (key === "rules") {
                     numberInput.value.push([
@@ -108,7 +118,7 @@ export default {
                 }
                 switch (valueType) {
                     case "[object Number]":
-                        numberInput.value.push([key, markRaw(ElSlider), { size: "small", min: 0 }])
+                        numberInput.value.push([key, markRaw(ElSlider), { size: "small", min: 0, max: 1000, marks: { 0: "0", 1000: { label: "1000" } } }])
                         break
                     case "[object String]":
                         commonInput.value.push([key, markRaw(ElInput), { size: "small", placeholder: key }])
@@ -152,9 +162,11 @@ export default {
         }
         const modelValue = function (key: string) {
             let modelValue = props.modelValue[key]
+            const typeStr = Object.prototype.toString.call(modelValue)
             try {
-                if (Object.prototype.toString.call(modelValue) === "[object Object]")
+                if (typeStr === "[object Object]") {
                     modelValue = JSON.stringify({ ...modelValue }, null, 2)
+                }
             }
             catch {}
 

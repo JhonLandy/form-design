@@ -65,10 +65,7 @@ export function generateProps(definedProps: Prop<unknown>, defaultProps = {}) {
                     const type = meta.type as any
 
                     if (Array.isArray(type)) {
-                        if (type.includes(Boolean)) {
-                            setPropValue(props, key, Boolean, getDefaultValue(meta))
-                        }
-                        else if (type.includes(String)) {
+                        if (type.includes(String)) {
                             setPropValue(props, key, String, getDefaultValue(meta))
                         }
                         else {

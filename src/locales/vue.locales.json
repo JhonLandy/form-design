@@ -10,7 +10,7 @@
         "validateOnRuleChange": "在值变更时验证",
         "scrollIntoViewOptions": "滚动到视图选项",
         "requireAsteriskPosition": "必填星号位置",
-        "prop": "字段名（prop）",
+        "prop": "字段名",
         "required": "必填",
         "error": "错误信息",
         "validateStatus": "验证状态",
@@ -29,6 +29,7 @@
         "type": "类型",
         "disabled": "禁用",
         "loading": "加载中",
+        "loadingText": "加载时显示的文字",
         "icon": "图标",
         "plain": "朴素按钮",
         "round": "圆角按钮",
@@ -142,7 +143,16 @@
         "load": "异步加载树节点的方法",
         "ariaLabel": "无障碍访问的标签",
         "valueOnClear": "在清除后选择的值",
-        "emptyValues": "配置组件的空值"
+        "emptyValues": "配置组件的空值",
+        "scrollbarAlwaysOn": "是否总是展示滚动条",
+        "itemHeight": "下拉项的高度",
+        "noDataText": "当在没有数据时显示的文字",
+        "noMatchText": "搜索条件无匹配时显示的文字",
+        "effect": "主题顔色",
+        "tagEffect": "标签效果",
+        "tagType": "标签类型",
+        "collapseTagsTooltip ": "是否显示折叠标签的文本",
+        "maxCollapseTags": "需要显示的 Tag 的最大数量"
     }
 
 }
