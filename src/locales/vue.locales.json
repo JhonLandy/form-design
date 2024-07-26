@@ -138,7 +138,10 @@
         "hideLoading": "是否隐藏加载状态",
         "placement": "Tooltip/下拉框 的位置",
         "treeProps": "树形结构的属性配置",
-        "load": "异步加载树节点的方法"
+        "load": "异步加载树节点的方法",
+        "ariaLabel": "无障碍访问的标签",
+        "valueOnClear": "在清除后选择的值",
+        "emptyValues": "配置组件的空值"
     }
 
 }
