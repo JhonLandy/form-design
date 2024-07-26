@@ -140,6 +140,10 @@ onMounted(() => {
 ElMessageBox({
     title: "公告",
     message: h("div", [
+        h("span", [
+            "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
+            h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
+        ]),
         h("section", [
             h("h4", "功能："),
             h("p", "1.下载->代码预览"),
@@ -149,10 +153,6 @@ ElMessageBox({
         ]),
         h("section", [
             h("h4", "更多功能，请联系邮箱：709364178@qq.com"),
-        ]),
-        h("span", [
-            "Vue3表单设计器, 生成代码主题是element-plus，设计参考：",
-            h("a", { style: { color: "#409eff" }, target: "_blank", href: "https://element-plus.org/zh-CN/component/overview.html" }, "https://element-plus.org/zh-CN/component/overview.html"),
         ]),
     ]),
     confirmButtonText: "知道了",
