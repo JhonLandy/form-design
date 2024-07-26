@@ -73,6 +73,7 @@
         "activevalue": "激活值",
         "inactiveValue": "未激活值",
         "width": "宽度",
+        "height": "高度",
         "min-width": "最小宽度",
         "sortable": "可排序",
         "align": "对齐方式",
