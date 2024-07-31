@@ -24,14 +24,16 @@ const cm_view = ref<EditorView>()
 function copyCode() {
     if (cm_view.value) {
         const text = cm_view.value.state.doc.toString()
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                ElMessage({
-                    message: "复制成功",
-                    type: "success",
-                    plain: true,
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    ElMessage({
+                        message: "复制成功",
+                        type: "success",
+                        plain: true,
+                    })
                 })
-            })
+        }
     }
 }
 async function download() {

@@ -52,10 +52,10 @@ export const TRANSER_DATA = [{
     disabled: true,
 }]
 export const SELECT_V2_OPTIONS = [{
-    key: 1,
+    value: 1,
     label: `Option 1`,
 }, {
-    key: 2,
+    value: 2,
     label: `Option 2`,
 }]
 export const EFFECT_OPTIONS = [
@@ -105,7 +105,7 @@ export const COMPONENT_COLLECTION = [
     h(ElSelect, { placeholder: "下拉框" }, {
         default: () => SHOW_DATA.map(value => h(ElOption, { value, label: value })),
     }),
-    h(ElSelectV2, { placeholder: "虚拟化数据下拉框", options: SELECT_V2_OPTIONS }),
+    h(ElSelectV2, { modelValue: "", placeholder: "虚拟化数据下拉框", options: SELECT_V2_OPTIONS }),
     h(ElCascader, { placeholder: "级联选择下拉框", options: CASCADER_DATA }),
     h(ElTreeSelect, { placeholder: "树形选择下拉框", data: TREE_SELECT_OPTIONS }),
     h(ElInputNumber, { placeholder: "计数器" }),

@@ -13,6 +13,7 @@ const i18n = createI18n({
     legacy: false,
     messages: {
         zh: locales.zh,
+        en: locales.en,
     },
 })
 const app = createApp(App)

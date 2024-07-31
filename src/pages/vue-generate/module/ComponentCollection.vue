@@ -56,7 +56,8 @@ export default {
                                 </a>
                                 <VueDraggable
                                     modelValue={[Component]}
-                                    ghostClass="ghost"
+                                    // eslint-disable-next-line ts/ban-ts-comment
+                                    // @ts-expect-error
                                     group={group}
                                     sort={false}
                                     clone={dataTransfer}

@@ -25,10 +25,48 @@ export default {
             const maxlen = 18
             return len > maxlen ? <ElTooltip content={label}>{[label.substring(0, maxlen - 3), "..."].join("")}</ElTooltip> : label
         }
+
+        function onUpdateModelValue(key: any, val: string, type?: "object") {
+            if (key === "validator") {
+                emit("update:modelValue", { ...props.modelValue, [key]: val })
+                return
+            }
+            try {
+                if (type === "object") {
+                    // 处理回车
+                    val = val.replace(/\n\n\}/, `,"key":"value"}`)
+                    val = JSON.parse(val)
+                }
+                emit("update:modelValue", { ...props.modelValue, [key]: val })
+            }
+            catch {
+                try {
+                    // 处理最后一个属性是逗号
+                    val = val.replace(/\s/g, "").replace(/[,|\s]\}/, `,"key":"value"}`)
+                    val = JSON.parse(val)
+                    emit("update:modelValue", { ...props.modelValue, [key]: val })
+                }
+                catch {
+                    ElMessage.error(`属性${t(key)}配置失败： json格式异常,建议通过复制粘贴方式赋值`)
+                }
+            }
+        }
+        const modelValue = function (key: string) {
+            let modelValue = props.modelValue[key]
+            const typeStr = Object.prototype.toString.call(modelValue)
+            try {
+                if (typeStr === "[object Object]") {
+                    modelValue = JSON.stringify({ ...modelValue }, null, 2)
+                }
+            }
+            catch {}
+
+            return modelValue
+        }
+        // eslint-disable-next-line ts/ban-ts-comment
+        // @ts-expect-error
+        const compType = getCurrentCompType()
         watchEffect(() => {
-            // eslint-disable-next-line ts/ban-ts-comment
-            // @ts-expect-error
-            const compType = getCurrentCompType()
             commonInput.value = []
             numberInput.value = []
             booleanInput.value = []
@@ -103,7 +141,7 @@ export default {
                         markRaw(h(ElSelect, {}, {
                             default: () => EFFECT_OPTIONS.map(({ label, key }) => h(ElOption, { value: key, label })),
                         })),
-                        { size: "small", multiple: true, placeholder: "选择主题" },
+                        { size: "small", placeholder: "选择主题" },
                     ])
                 }
                 if (key === "rules") {
@@ -135,43 +173,7 @@ export default {
                 }
             })
         })
-        function onUpdateModelValue(key: any, val: string, type?: "object") {
-            if (key === "validator") {
-                emit("update:modelValue", { ...props.modelValue, [key]: val })
-                return
-            }
-            try {
-                if (type === "object") {
-                    // 处理回车
-                    val = val.replace(/\n\n\}/, `,"key":"value"}`)
-                    val = JSON.parse(val)
-                }
-                emit("update:modelValue", { ...props.modelValue, [key]: val })
-            }
-            catch {
-                try {
-                    // 处理最后一个属性是逗号
-                    val = val.replace(/\s/g, "").replace(/[,|\s]\}/, `,"key":"value"}`)
-                    val = JSON.parse(val)
-                    emit("update:modelValue", { ...props.modelValue, [key]: val })
-                }
-                catch {
-                    ElMessage.error(`属性${t(key)}配置失败： json格式异常,建议通过复制粘贴方式赋值`)
-                }
-            }
-        }
-        const modelValue = function (key: string) {
-            let modelValue = props.modelValue[key]
-            const typeStr = Object.prototype.toString.call(modelValue)
-            try {
-                if (typeStr === "[object Object]") {
-                    modelValue = JSON.stringify({ ...modelValue }, null, 2)
-                }
-            }
-            catch {}
 
-            return modelValue
-        }
         return () => (
             <Fragment>
                 <section class="setting">

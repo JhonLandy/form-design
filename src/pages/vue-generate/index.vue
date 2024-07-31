@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, isVNode, onMounted, provide, reactive, ref } from "vue"
+import { computed, h, isVNode, onMounted, provide, reactive, ref, shallowReactive } from "vue"
 import { ElDialog, ElForm, ElFormItem, ElIcon, ElLoading, ElMessageBox } from "element-plus"
 import { DArrowRight, Download, View } from "@element-plus/icons-vue"
 import { isEmpty, omit } from "ramda"
@@ -14,8 +14,8 @@ import { generateCode, generateProps, vueFormat } from "./scripts"
 import { COMPONENT_DEFAULT_WIDTH } from "./config"
 
 const createAreaRef = ref()
-const properties = reactive<PropertiesRecord>({ formRoot: {} })
-const extendProps = reactive<PropertiesRecord>({ formRoot: {
+const properties = shallowReactive<PropertiesRecord>({ formRoot: {} })
+const extendProps = shallowReactive<PropertiesRecord>({ formRoot: {
     // maxCompNumber: 2,
     compWidth: COMPONENT_DEFAULT_WIDTH,
 } })
@@ -178,8 +178,8 @@ ElMessageBox({
                 <el-tab-pane label="表单设置" name="form-setting">
                     <PropertySettingExtend v-model:extends="extendProps.formRoot" v-model="properties.formRoot" />
                 </el-tab-pane>
-                <el-tab-pane label="导出设置" name="export-setting">
-                    <el-button type="primary" size="small" @click="download">
+                <el-tab-pane label="导出设置" class="export-setting" name="export-setting">
+                    <el-button class="download-btn" type="primary" @click="download">
                         <template #icon>
                             <ElIcon>
                                 <Download />
@@ -187,7 +187,7 @@ ElMessageBox({
                         </template>
                         下载
                     </el-button>
-                    <el-button type="primary" size="small" @click="preview">
+                    <el-button class="preview-btn" type="primary" @click="preview">
                         <template #icon>
                             <ElIcon>
                                 <View />
@@ -308,5 +308,18 @@ $middle-width: calc(100% - $aside-left-width - $aside-right-width);
 
 ::v-deep(.el-drawer) {
     overflow: visible;
+}
+
+.export-setting {
+    display: flex;
+    justify-content: space-between;
+
+    .download-btn {
+        flex-basis: 50%;
+    }
+
+    .preview-btn {
+        flex-basis: 50%;
+    }
 }
 </style>
