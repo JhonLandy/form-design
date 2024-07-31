@@ -178,7 +178,7 @@ ElMessageBox({
                 <el-tab-pane label="表单设置" name="form-setting">
                     <PropertySettingExtend v-model:extends="extendProps.formRoot" v-model="properties.formRoot" />
                 </el-tab-pane>
-                <el-tab-pane label="导出设置" class="export-setting" name="export-setting">
+                <el-tab-pane label="下载" class="export-setting" name="export-setting">
                     <el-button class="download-btn" type="primary" @click="download">
                         <template #icon>
                             <ElIcon>
