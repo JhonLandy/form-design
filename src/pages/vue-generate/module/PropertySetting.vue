@@ -249,7 +249,8 @@ export default {
 
 .setting__item {
     width: 48%;
-    padding: 5px 18px;
+    padding: 18px;
+    padding-bottom: 10px;
     font-size: $font-size-small;
     color: $color-black;
     border-radius: 5px;
@@ -260,8 +261,10 @@ export default {
     }
 
     &__label {
-        padding: 5px 0;
+        width: 100%;
         color: $label-color;
+
+        @include text-ellipsis(1)
     }
 
     &:hover &__label{
