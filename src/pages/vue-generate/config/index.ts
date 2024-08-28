@@ -1,4 +1,4 @@
-import { ElAutocomplete, ElAvatar, ElButton, ElCascader, ElCheckbox, ElCheckboxButton, ElCheckboxGroup, ElDatePicker, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioButton, ElRadioGroup, ElRate, ElSelect, ElSelectV2, ElSlider, ElSwitch, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
+import { ElAutocomplete, ElButton, ElCascader, ElCheckbox, ElCheckboxButton, ElCheckboxGroup, ElDatePicker, ElDropdown, ElDropdownItem, ElDropdownMenu, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioButton, ElRadioGroup, ElSelect, ElSelectV2, ElTimePicker, ElTimeSelect, ElTreeSelect, ElUpload } from "element-plus"
 import { clone } from "ramda"
 import { h } from "vue"
 import { DATE_RULE, EMAIL_RULE, MONEY_RULE, NUMBER_RULE, PERCENT_RULE, REQUIRED_RULE } from "../validators"
